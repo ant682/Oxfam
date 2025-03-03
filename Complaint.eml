@@ -1,0 +1,96 @@
+Delivered-To: antlonghurst@gmail.com
+Received: by 2002:a17:504:7951:b0:1bd0:c3b:ac05 with SMTP id uo17csp8106604njb;
+        Tue, 12 Nov 2024 07:16:55 -0800 (PST)
+X-Forwarded-Encrypted: i=2; AJvYcCVaphavA/LxRClGspxm59G8ajJPHTCU3xNu060AKjuxLDycWea0O23T5ve6EKg51Sap4MTLXCg3pDUN0RQ=@gmail.com
+X-Google-Smtp-Source: AGHT+IH4ED/Xi3coQDjTNCCthczM9u+APy2lWQHP0Cx/Rx5Nmut0gZU6l+T0rD1mZBd6jERKzPaJ
+X-Received: by 2002:a05:6102:358e:b0:4a3:c516:3173 with SMTP id ada2fe7eead31-4aae13abe03mr15587944137.12.1731424615759;
+        Tue, 12 Nov 2024 07:16:55 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1731424615; cv=none;
+        d=google.com; s=arc-20240605;
+        b=i6upA25JnGl2ai1/EDH5F9zmnnHPBssFcw/Zc+F6iPALD8eu1GSSJz4zvYNfqI1VjN
+         91UdC89fe/b3mo+MEwIAFPH5jSeIG4ODoBFFOz7qHtd0ILSOU9fhqj371VVlXf5RNtQi
+         XCFL1fS0aVt5RGSOuFaHvX2R8gJMIKH+hmQGqmb9XiesKnusk+yKQ4xelNIqDHJqqndd
+         D1qPoW0i+F28hhALEBRzoYaWfaXHUVUrMY9DyM+uZdsGLl8vkMJ+JX7R6iOa3rba+1WE
+         eAq87gv1A8GZacozvX7LkX1B1sY+KQBVdG2/UbGnGMFEf2F1byZ83EV7slIQv5sbFpYt
+         taTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:message-id:subject:date:mime-version:from
+         :content-transfer-encoding:dkim-signature;
+        bh=7rYggSt4GElRlTVEyo3cFbVUFT1wPL7EFtFdN10/Vb8=;
+        fh=4mqJkuLNS5KJP4S08bitlMsGqu8jnjMlBB2/o8IXjUE=;
+        b=U3gLXcw2sl/lkJ7XGSa5zlW7KB2I+wh6pi2Aq06yVBJ1dlER5xpxem/E6A9x/GX/Ba
+         n3mF0ryENApGU10aqfqkFkvY4m25AwPFIy+V5RirjBMUIR8yybgn6K4LE/ifCJZXAnez
+         t2SwO7ZBfj5zNtFN5LC5Pr5urXQC2GIvkNv/ATq9ICr2HFYLoXoBlfOj6BgJrO1aeWd4
+         nesE/ycPMPMdc4eizZ4dKYuB5BT0pVKFT2WnW7DCOt8bSJWkyXAiFLSw3RmKKqNV1XY5
+         ij76p5zv7v1RDIMnTQnPke1fWuB6zsep32ZQdGWURHEHAHu077zDjGqXDXfnyxSNyXsx
+         5d+A==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@icloud.com header.s=1a1hai header.b=ffnQlTcd;
+       spf=pass (google.com: domain of nix.gibson@icloud.com designates 17.57.156.4 as permitted sender) smtp.mailfrom=nix.gibson@icloud.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=icloud.com
+Return-Path: <nix.gibson@icloud.com>
+Received: from ci74p00im-qukt09081501.me.com (ci74p00im-qukt09081501.me.com. [17.57.156.4])
+        by mx.google.com with ESMTPS id ada2fe7eead31-4aa9e7193adsi3430989137.111.2024.11.12.07.16.55
+        for <antlonghurst@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 12 Nov 2024 07:16:55 -0800 (PST)
+Received-SPF: pass (google.com: domain of nix.gibson@icloud.com designates 17.57.156.4 as permitted sender) client-ip=17.57.156.4;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@icloud.com header.s=1a1hai header.b=ffnQlTcd;
+       spf=pass (google.com: domain of nix.gibson@icloud.com designates 17.57.156.4 as permitted sender) smtp.mailfrom=nix.gibson@icloud.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=icloud.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com;
+	s=1a1hai; t=1731424615;
+	bh=7rYggSt4GElRlTVEyo3cFbVUFT1wPL7EFtFdN10/Vb8=;
+	h=Content-Type:From:Mime-Version:Date:Subject:Message-Id:To:
+	 x-icloud-hme;
+	b=ffnQlTcdX2MGbPgZCUu+QmjEbdtsE2ggIL0LnC5Gag2L/GGkpDpbjuNRI+0BKU85A
+	 OLnVRwCZ9eQLogCin3JFQuuvjeJtWBctgYT3iHMKeS/zluS+vjwRlAI4hGdlsTtd6b
+	 9O9eeZG2MjBO8f3Pj6wDbrxOF11jPLbqCuF4H9SFqGJx55XyuSEjLbuZgc9ntVtmtK
+	 +PTmPUfWipo6uG92ccKdyxTpSrf/mGy8ZJxEHf8xb/Kx8jCY7kkOSANDVx3Of9OjJW
+	 moFcFryo6+I0rBnkfan0izKG9cA5GcJK92hkFvy0vTW0EApSS5eCNDCJoocd2L32Sl
+	 DP8l5rFqrEaSA==
+Received: from smtpclient.apple (ci77p00im-dlb-asmtp-mailmevip.me.com [17.57.156.26])
+	by ci74p00im-qukt09081501.me.com (Postfix) with ESMTPSA id 0CBDB25C04F9;
+	Tue, 12 Nov 2024 15:16:53 +0000 (UTC)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: N Gibson <nix.gibson@icloud.com>
+Mime-Version: 1.0 (1.0)
+Date: Tue, 12 Nov 2024 15:16:32 +0000
+Subject: Complaint
+Message-Id: <5307CD3F-4320-43D0-B43E-8A02239FD619@icloud.com>
+To: speakup@oxfam.org.uk
+X-Mailer: iPhone Mail (21H216)
+X-Proofpoint-ORIG-GUID: 7JdujSjXqufTaBP0YGrN-90CewYko_P1
+X-Proofpoint-GUID: 7JdujSjXqufTaBP0YGrN-90CewYko_P1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.62.30
+ definitions=2024-11-12_05,2024-11-12_02,2024-09-30_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0 mlxscore=0 mlxlogscore=645
+ adultscore=0 phishscore=0 clxscore=1011 bulkscore=0 malwarescore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2308100000 definitions=main-2411120122
+
+Good afternoon,=20
+
+I=E2=80=99m writing to raise a complaint regarding a member of staff in the C=
+rawley store as well as area management that covers the Queensway crawley We=
+st Sussex store.=20
+
+There have been a number of incidents where my son has been bullied and verb=
+ally abused by the assistant manager Victor for Crawley. He has also been sp=
+oken to by the area manager Jen and minutes were taken regarding a matter wi=
+thout any previous knowledge to my son, no notice was given and he was not a=
+llowed to have any support with him. He is a classed as a vulnerable adult. A=
+ny investigations should be conducted under ACAS guidelines and this was not=
+ done.=20
+
+Please advise as a matter of urgency who I should contact regarding this mat=
+ter to explain in detail further.=20
+
+Kindest regards.=20
+
+Mrs Gibson=20
+Sent from my iPhone=20=

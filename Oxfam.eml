@@ -1,0 +1,435 @@
+Delivered-To: antlonghurst@gmail.com
+Received: by 2002:a17:504:4682:b0:1c70:1c4b:487f with SMTP id q2csp841421nji;
+        Sat, 8 Feb 2025 04:12:27 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHcSKLk5YsfU7eUZD/T27vAJ1jnMlHo0gULkWpJGsNmh1lZpxhOL0dKxfX0diALxbesQu6b
+X-Received: by 2002:a05:620a:240c:b0:7b6:d5cb:43b7 with SMTP id af79cd13be357-7c047c614f1mr905675685a.26.1739016746933;
+        Sat, 08 Feb 2025 04:12:26 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1739016746; cv=none;
+        d=google.com; s=arc-20240605;
+        b=hLITzzVUL3lZeaG3p7PxZVr10apxPqMLyQhkKG/IV8Nc8SKlSzuQayqkMH2jcWIt+d
+         menNNqsdNFNNcQeoLemeVqosHJ68KDLMJPGltBqZHE1LW4kpw7idI0qy3bnrLjA2KFgW
+         v726JkZQcvMDLwPgi3ZnQGK0P8zJkdj/rx5dxhu0EXTYJLBUKePGNbYZ4kE0ADRb9eHD
+         qnuqi2COkjmb2lV41hc8N1O7XkoC77ANO1A4gBttJ6pNXpMPa0p7jLGthPBcgmzUXaw2
+         tQsIsjpfCmWpUHaeFFFrlPa+/85n0/K1KeoTm4ne6mWP4dH6VvGnBZC5d9qqxwZQbgY3
+         CN/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:references:message-id:subject:date:mime-version:from
+         :content-transfer-encoding:dkim-signature;
+        bh=cQXJkUwZVXtpGc8P2Z+5onQiPkHHOHgcAdK4+tYE8s0=;
+        fh=BuytLK8hhDjpSV/ejoibJyJIqLrdmQ3kXziX7L4crPs=;
+        b=E4oBuhnE8gDwkFJQAym/s5E9bSOi8P+62TsFZJNfMlMP4j8zyOsaeNgJOvBLGQKpyA
+         hqzeoJenBp/Jx86SKZ5yXksQbjheelG+yKPw5apOUAjL4LDUR99eRlsvUj0yB9ktJsK9
+         igz/nLvvAMjyg69N9/hjq+9lUAw6f18JEkeVrQnWn5xJnSklaO8t+f290+pjStKbLFd7
+         hmyiB9yJoW3U8lh04o0JQpIJYQZN4uBbQdWUAjQbOyCoiPTeuxFHK3kG9rON/Z7v9K4P
+         mkhTH0qJYkGwwvUBlW5r4SZSPBk5nQLAStBh9rU7FYM06j8YRrxClDwX1i9JooLke0qW
+         UdyQ==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@icloud.com header.s=1a1hai header.b=J9FPZIbX;
+       spf=pass (google.com: domain of nix.gibson@icloud.com designates 17.58.63.177 as permitted sender) smtp.mailfrom=nix.gibson@icloud.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=icloud.com
+Return-Path: <nix.gibson@icloud.com>
+Received: from st43p00im-ztdg10073201.me.com (st43p00im-ztdg10073201.me.com. [17.58.63.177])
+        by mx.google.com with ESMTPS id af79cd13be357-7c041ed0441si536262485a.471.2025.02.08.04.12.26
+        for <antlonghurst@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 08 Feb 2025 04:12:26 -0800 (PST)
+Received-SPF: pass (google.com: domain of nix.gibson@icloud.com designates 17.58.63.177 as permitted sender) client-ip=17.58.63.177;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@icloud.com header.s=1a1hai header.b=J9FPZIbX;
+       spf=pass (google.com: domain of nix.gibson@icloud.com designates 17.58.63.177 as permitted sender) smtp.mailfrom=nix.gibson@icloud.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=icloud.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com;
+	s=1a1hai; bh=cQXJkUwZVXtpGc8P2Z+5onQiPkHHOHgcAdK4+tYE8s0=;
+	h=Content-Type:From:Mime-Version:Date:Subject:Message-Id:To:x-icloud-hme;
+	b=J9FPZIbXBxdGMe6tTL7dSengADG3mAi6uPN+TTxeF6dRs057BSBBveXSvza2L43gO
+	 m+DG05dIsMjhRtcGHXqBKEE4ea0xQ9J5HDKpiCjnNHclAABuxuzR4CbwlEYrs4/70W
+	 mz/3Iw9Nv1pjmgvZK9acNhyhaM0OsRYGV9iBG/12TcvmGFBmMRmotUQSyrxvdiSM7J
+	 W3I3RkzDYPOWAYq4nYDTj9fLNXgbEFr9Xf++eqh7jp0WEmfX+75GVh/6x2iNUB/PS9
+	 s3vGgvYMW5cMAvjMuC4kvdPl19mnamHTbyme+itqKq5wjVjrw0iPM9+CtrXL9e2jB8
+	 OnFDt6Cn1fhmQ==
+Received: from smtpclient.apple (st43p00im-dlb-asmtp-mailmevip.me.com [17.42.251.41])
+	by st43p00im-ztdg10073201.me.com (Postfix) with ESMTPSA id 04D269C0467
+	for <antlonghurst@gmail.com>; Sat,  8 Feb 2025 12:12:24 +0000 (UTC)
+Content-Type: multipart/alternative; boundary=Apple-Mail-CE21D5DD-C4C0-4F92-82D6-57F65C3140A6
+Content-Transfer-Encoding: 7bit
+From: N Gibson <nix.gibson@icloud.com>
+Mime-Version: 1.0 (1.0)
+Date: Sat, 8 Feb 2025 12:12:02 +0000
+Subject: Fwd: Oxfam
+Message-Id: <B2FD86DD-7793-4D20-8AAD-F9CCFD4D5FD5@icloud.com>
+References: <5979B845-69CE-43F1-8FBA-57E687A4C18E@icloud.com>
+To: antlonghurst@gmail.com
+X-Mailer: iPhone Mail (22D63)
+X-Proofpoint-ORIG-GUID: XkMmN3g-Y2aNkmQADZ7rfl1REoQzCslx
+X-Proofpoint-GUID: XkMmN3g-Y2aNkmQADZ7rfl1REoQzCslx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-08_05,2025-02-07_03,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999 malwarescore=0
+ suspectscore=0 adultscore=0 bulkscore=0 clxscore=1015 phishscore=0
+ spamscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2308100000 definitions=main-2502080101
+
+
+--Apple-Mail-CE21D5DD-C4C0-4F92-82D6-57F65C3140A6
+Content-Type: text/html;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
+utf-8"></head><body dir=3D"auto"><br id=3D"lineBreakAtBeginningOfSignature">=
+<div dir=3D"ltr">Sent from my iPhone&nbsp;</div><div dir=3D"ltr"><br>Begin f=
+orwarded message:<br><br></div><blockquote type=3D"cite"><div dir=3D"ltr"><b=
+>From:</b> N Gibson &lt;nix.gibson@icloud.com&gt;<br><b>Date:</b> 8 February=
+ 2025 at 09:52:44 GMT<br><b>To:</b> Veronica Raymond &lt;VRaymond@oxfam.org.=
+uk&gt;<br><b>Subject:</b> <b>Re: Oxfam</b><br><br></div></blockquote><blockq=
+uote type=3D"cite"><div dir=3D"ltr">=EF=BB=BF<meta http-equiv=3D"content-typ=
+e" content=3D"text/html; charset=3Dutf-8">Veronica,&nbsp;<div><br></div><div=
+>Further to my previous email dated 22/01/24 I have still not received any r=
+esponse.&nbsp;</div><div><br></div><div>So it would appear that I raise a co=
+mplaint, absolutely nothing is done regarding it, instead my son is pulled i=
+nto the office for questioning regarding a complaint against him not a week l=
+ater or so. It was reported he had hurt someone=E2=80=99s hand when taking a=
+ box of donations from them. This was an accident and he had apologised at t=
+he time. Also another complaint alleging something happened which was also c=
+ompletely taken out of context. The person was not a long standing volunteer=
+ and she had apparently raised a complaint after she left. Both of these peo=
+ple were friends and also close friends with victor!&nbsp;</div><div><br></d=
+iv><div>After the meeting was finished my son asked what happens now. The la=
+dy conducting the meeting asked what he felt would be a good course of actio=
+n next. He said he would apologise again to the person who he accidentally h=
+urt her hand as soon as he saw her. He also said he would be far more carefu=
+l in future and insist people put things down from now on and he will not ta=
+ke them from anyone The lady agreed this was a good idea and that=E2=80=99s w=
+hat should happen moving forward.&nbsp;</div><div><br></div><div>I then emai=
+l you again questioning what=E2=80=99s happening with this complaint, The ne=
+xt thing he knows not a couple of days later the area manager is in and spea=
+king to victor in the office. (The two people our complaint was regarding!) h=
+e is then pulled into the office yet again and told by one of the people he r=
+aised a complaint about and the other lady that they=E2=80=99ve spoken about=
+ the complaint made by the volunteers and they=E2=80=99ve decided he was no l=
+onger going to be working there. 5yrs of dedication, long hours, sometimes 5=
+ days a week and being a key holder, stepping up as manager whenever George w=
+as on holiday for a couple of years, plus so much more. And he raises a comp=
+laint and is treated in this way.&nbsp;</div><div><br></div><div>Needless to=
+ say we will be taking this further and have taken some advice already. Volu=
+nteer or employee, everyone has the same right when it comes to a complaint.=
+ Anthony has been taken advantage of because of his condition, knowing he sh=
+ould not be spoken with alone regarding anything, he was not given notice fo=
+r discussing matters, the whole situation from this complaint to the conveni=
+ent timings of complaints from victors friends and him being spoken to by th=
+e people he raised complaints regarding, all of which is completely unaccept=
+able and not within guidelines.&nbsp;</div><div><br></div><div>Finally havin=
+g been completely ignored regarding Anthony and I original complaint is appa=
+lling. All of the above matters are not being ignored by us even if oxfam ar=
+e ignoring official complaints.&nbsp;</div><div><br></div><div>All of the ab=
+ove are completely unacceptable.&nbsp;</div><div><br></div><div>Regards</div=
+><div><br></div><div>Nicole Gibson</div><div><div dir=3D"ltr">Sent from my i=
+Phone&nbsp;</div><div dir=3D"ltr"><br><blockquote type=3D"cite">On 22 Nov 20=
+24, at 21:25, N Gibson &lt;nix.gibson@icloud.com&gt; wrote:<br><br></blockqu=
+ote></div><blockquote type=3D"cite"><div dir=3D"ltr">=EF=BB=BF<meta http-equ=
+iv=3D"content-type" content=3D"text/html; charset=3Dutf-8">Hiya,&nbsp;<div><=
+br></div><div>That sounds fine to me. Either way works for me. Thank you.&nb=
+sp;</div><div><br></div><div>Nicole&nbsp;<br id=3D"lineBreakAtBeginningOfSig=
+nature"><div dir=3D"ltr">Sent from my iPhone&nbsp;</div><div dir=3D"ltr"><br=
+><blockquote type=3D"cite">On 22 Nov 2024, at 13:32, Veronica Raymond &lt;VR=
+aymond@oxfam.org.uk&gt; wrote:<br><br></blockquote></div><blockquote type=3D=
+"cite"><div dir=3D"ltr">=EF=BB=BF
+
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style>@font-face { font-family: "Cambria Math"; }
+@font-face { font-family: Calibri; }
+@font-face { font-family: "Calibri Light"; }
+@font-face { font-family: "Lucida Handwriting"; }
+p.MsoNormal, li.MsoNormal, div.MsoNormal { margin: 0cm; font-size: 11pt; fon=
+t-family: Calibri, sans-serif; }
+a:link, span.MsoHyperlink { color: blue; text-decoration: underline; }
+span.EmailStyle19 { font-family: Calibri, sans-serif; color: windowtext; }
+.MsoChpDefault { font-size: 10pt; }
+@page WordSection1 { size: 612pt 792pt; margin: 72pt; }
+div.WordSection1 { page: WordSection1; }</style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+
+
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US">Hi Nicole<=
+o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US"><o:p>&nbsp=
+;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US">I=E2=80=99=
+m out early tomorrow but will try and call you, otherwise Monday 11.15am if t=
+hat=E2=80=99s okay?<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US"><o:p>&nbsp=
+;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US">Regards,<o=
+:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US">Veronica<o=
+:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US"><o:p>&nbsp=
+;</o:p></span></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm 0=
+cm 0cm">
+<p class=3D"MsoNormal"><b><span lang=3D"EN-US">From:</span></b><span lang=3D=
+"EN-US"> N Gibson &lt;nix.gibson@icloud.com&gt;
+<br>
+<b>Sent:</b> Friday, November 22, 2024 1:21 PM<br>
+<b>To:</b> Veronica Raymond &lt;VRaymond@oxfam.org.uk&gt;<br>
+<b>Subject:</b> Re: Oxfam<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Good afternoon Veronica,&nbsp;<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Thank you for your email.&nbsp;<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Anthony has just called me to tell me that you called=
+ him.&nbsp;<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">I=E2=80=99m actually going to work shortly, so I=E2=80=
+=99m not in a position to discuss this with you this afternoon unfortunately=
+. However, I=E2=80=99m available on Monday as it=E2=80=99s my day off. Or if=
+ you work weekends I=E2=80=99m available tomorrow morning if that helps
+ at all.&nbsp;<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Let me know if either is convenient and we can go fro=
+m there.&nbsp;<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Kindest regards&nbsp;<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Nicole&nbsp;<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">Sent from my iPhone&nbsp;<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><br>
+<br>
+<o:p></o:p></p>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">On 22 Nov 2024, at 13:=
+11, Veronica Raymond &lt;<a href=3D"mailto:VRaymond@oxfam.org.uk">VRaymond@o=
+xfam.org.uk</a>&gt; wrote:<o:p></o:p></p>
+</blockquote>
+</div>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<div>
+<p class=3D"MsoNormal">=EF=BB=BF <o:p></o:p></p>
+<p class=3D"MsoNormal">Dear Mrs Gibson<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">We take complaints seriously and I would like to disc=
+uss the two you have made, as below.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">I have just spoken to Anthony to explain next steps.<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">I=E2=80=99m free today between 1pm =E2=80=93 2.15pm a=
+lso 4pm =E2=80=93 5.15pm should you be in a position to be able to contact m=
+e or suggest some times that would be convenient, I would appreciate that.<o=
+:p></o:p></p>
+<p class=3D"MsoNormal">I look forward to hearing from you.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Regards,<o:p></o:p></p=
+>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-fa=
+mily:&quot;Lucida Handwriting&quot;">Veronica</span><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal"><b><span style=3D"color:black">Veronica Raymond&nbsp;=
+ |&nbsp; Operations Manager South
+</span></b><o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"color:black">Oxfam GB | Oxford&nbsp;|<=
+/span>Tel&nbsp; 07789 397150 |
+<a href=3D"mailto:vraymond@oxfam.org.uk">vraymond@oxfam.org.uk</a><o:p></o:p=
+></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ari=
+al&quot;,sans-serif;color:red">Gen</span><span style=3D"font-size:10.0pt;fon=
+t-family:&quot;Arial&quot;,sans-serif;color:#FFC000">der</span><span style=3D=
+"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black">
+</span><span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-se=
+rif;color:#FFD966">Pro</span><span style=3D"font-size:10.0pt;font-family:&qu=
+ot;Arial&quot;,sans-serif;color:#92D050">nou</span><span style=3D"font-size:=
+10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#00B050">ns:</span><sp=
+an style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:=
+black">
+</span><span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-se=
+rif;color:#00B0F0">she,</span><span style=3D"font-size:10.0pt;font-family:&q=
+uot;Arial&quot;,sans-serif;color:black">
+</span><span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-se=
+rif;color:#0070C0">her,</span><span style=3D"font-size:10.0pt;font-family:&q=
+uot;Arial&quot;,sans-serif;color:black">
+</span><span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-se=
+rif;color:#7030A0">hers</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><a href=3D"http://www.oxfam.org.uk"><b><span style=3D=
+"font-family:&quot;Calibri Light&quot;,sans-serif;color:#0563C1">www.oxfam.o=
+rg.uk</span></b></a><b><span style=3D"font-family:&quot;Calibri Light&quot;,=
+sans-serif;color:#70AD47">&nbsp;|&nbsp;</span></b><a href=3D"http://www.face=
+book.com/oxfamamerica"><b><span style=3D"font-family:&quot;Calibri Light&quo=
+t;,sans-serif;color:#70AD47">www.facebook.com/oxfamgb</span></b></a><b><span=
+ style=3D"font-family:&quot;Calibri Light&quot;,sans-serif;color:#70AD47">&n=
+bsp;|&nbsp;</span></b><a href=3D"http://twitter.com/oxfamgb"><b><span style=3D=
+"font-family:&quot;Calibri Light&quot;,sans-serif;color:#70AD47">twitter.com=
+/oxfamgb</span></b></a><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot;=
+Arial&quot;,sans-serif">First complaint :-</span></b><br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">Ge=
+orge was promoted and we were so happy for George - well deserved. A new Sho=
+p Manager came in but didn't last very long - (named at 'Seed'? by Mrs Gibso=
+n) This shop manager was at the shop at the
+ time of the race riots and because of the riots spoke with them about Antho=
+ny leaving the shop early so he could get home safely. Also enquired with th=
+e Shop Manager how they would get home as was concerned for their safety and=
+ said - (verbatim) -<i>
+<b><span style=3D"color:black">"Concerned for your welfare as you are vulner=
+able and of the type of background that is the target"</span></b></i><b><spa=
+n style=3D"color:black">.</span></b> Anthony was present at this conversatio=
+n but did not say anything to the
+ Shop Manager.</span><br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">I h=
+ave a pleasant relationship with the former shop manager and stay in touch v=
+ia social media.</span><br>
+<br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">It=
+ has now come to light that the former shop manager has put a complaint in s=
+tating that Anthony and I were racist. I don't understand this could be perc=
+eived as a racist comment or become a complaint.</span><br>
+<br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">Je=
+n has since conducted a formal investigation, with someone present taking no=
+tes/minutes and asked to speak with Anthony about the complaint. Anthony was=
+ not warned prior to this meeting, did not
+ receive an invitation to attend said meeting and not given the opportunity f=
+or anyone to be present with him.</span><br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">No=
+r have I been invited to discuss this matter although it was I and not Antho=
+ny who said it. Antony is vulnerable and not familiar with procedure and we b=
+elieve Jen has not followed correct procedure
+ - ACAS guidelines. Anthony has been taken advantage of and why was Anthony s=
+poke to in a way of a formal investigation when he wasn't even the person wh=
+o made the welfare comment to the former shop manager. At no point have I be=
+en contacted to discuss the
+ matter. Anthony was left with that Jen would be in touch with the outcome -=
+ which Anthony does not understand.</span><br>
+<br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">Je=
+ns behaviour is totally unacceptable and would like to make a formal complai=
+nt about her.</span><br>
+<br>
+<br>
+<b><span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif"=
+>Second complaint :-</span></b><br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">An=
+tony mentioned that he had to give a witness statement about a complaint tha=
+t had been submitted against Victor (DSM) and that Victor witnessed Anthony c=
+oming out of the office when this meeting
+ was held.</span><br>
+<br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">Si=
+nce then Victor has displayed bullying aggressive behaviour towards Anthony -=
+ shouting at him on the shop floor, cutting his hours from the rota, accused=
+ Anthony of the one submitting the complaint,
+ accused Anthony of lying when Anthony insisted to Victor it was not he who h=
+ad submitted the complaint, having a go for minor and petty things, and of l=
+ate just totally ignoring Anthony.</span><br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">An=
+thony feels he is being forced out of his volunteering position and is extre=
+mely upset. Anthony loves volunteering at the shop and feels has a great wor=
+king relationship with everyone. Mrs Gibson
+ feels this is a form of constructive dismissal.</span><br>
+<br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">Vi=
+ctor has said to Anthony that - (verbatim) -
+<b><i>"Until I find out who has made this complaint against me this is how i=
+t's going to be"</i></b> and
+<b><i>" I will ensure when the new Shop Manager comes that they will get rid=
+ of you"</i></b> and<b><i> "No one wants to work with you".</i></b></span><b=
+r>
+<br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">Vi=
+ctor has scolded Anthony for shutting the shop early - Anthony could get hol=
+d of Victor (he had left to go and 'do something else') - didn't answer his p=
+hone - and as Anthony would be the only
+ staff member on site as the other volunteer had called in sick, Anthony fol=
+lowed Oxfam procedure. Anthony then received a text form Victor at 6:30 that=
+ evening scolding him for shutting the shop and that
+<b><i>" he should have kept on trying to call Victor".</i></b></span><br>
+<br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">An=
+thony has not been sent the rota and when turned up for normal Sunday shift w=
+as berated aggressively by Victor and shouted at
+<b><i>"not needed"</i></b></span><br>
+<br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">Mr=
+s Gibson is very upset and disappointed at the treatment of her son. Mrs Gib=
+son is angry at being accused of being racist and does not want the complain=
+t against the DSM going to the AM in light
+ of the complaint towards them.</span><br>
+<br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">Mr=
+s Gibson emailed Speak UP 12/11 to report bullying and the incorrect procedu=
+re followed.</span><br>
+<br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">Mr=
+s Gibson would prefer email as cannot always answer a call when at work but g=
+ave permission for their mobile number to be shared.</span><br>
+<br>
+<a href=3D"mailto:nix.gibson@icloud.com"><span style=3D"font-size:10.0pt;fon=
+t-family:&quot;Arial&quot;,sans-serif">nix.gibson@icloud.com</span></a><br>
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif">07=
+950779203</span><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">Oxfam works with others to overcome poverty and suffe=
+ring Oxfam GB is a member of Oxfam International and a company limited by gu=
+arantee registered in England No. 612172. Registered office: Oxfam House, Jo=
+hn Smith Drive, Cowley, Oxford,
+ OX4 2JY. A registered charity in England and Wales (no 202918) and Scotland=
+ (SC 039042)
+<o:p></o:p></p>
+</div>
+</blockquote>
+</div>
+</div>
+Oxfam works with others to overcome poverty and suffering Oxfam GB is a memb=
+er of Oxfam International and a company limited by guarantee registered in E=
+ngland No. 612172. Registered office: Oxfam House, John Smith Drive, Cowley,=
+ Oxford, OX4 2JY. A registered
+ charity in England and Wales (no 202918) and Scotland (SC 039042)
+
+
+</div></blockquote></div></div></blockquote></div></div></blockquote></body>=
+</html>=
+
+--Apple-Mail-CE21D5DD-C4C0-4F92-82D6-57F65C3140A6--
